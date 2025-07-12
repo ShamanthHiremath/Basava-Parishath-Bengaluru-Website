@@ -1,0 +1,76 @@
+# Node.js dependencies
+/node_modules/
+node_modules/
+
+# Log files
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+/dist/
+/build/
+/public/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# VS Code settings
+.vscode/
+
+# MacOS specific
+.DS_Store
+
+# Windows specific
+Thumbs.db
+
+# IDEs
+.idea/
+
+# Next.js builds
+.next/
+
+# React Native (if applicable)
+.expo/
+
+# Temporary files
+*.swp
+*.swo
+*.bak
+
+# Coverage directory for test coverage reports
+/coverage/
+
+# Babel & TypeScript
+/.babelrc
+/tsconfig.json
+/tsconfig.tsbuildinfo
+
+# Docker files (if applicable)
+docker-compose.override.yml
+Dockerfile*
+
+# Jest snapshots
+/coverage
+*.snap
+
+# PM2 or other process manager files (if applicable)
+ecosystem.config.js
+
+# Test logs
+test-logs/
+
+# Optional: If you're using Yarn
+.yarn-cache/
+.yarn-integrity
+
+# Optional: If you're using Webpack
+/webpack*
+
+# Optional: If you use the npm package manager
+package-lock.json
+
+
