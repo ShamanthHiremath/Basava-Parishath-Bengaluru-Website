@@ -30,24 +30,8 @@ cloudinary.config({
   api_secret: process.env.API_SECRET
 });
 
-// Configure CORS with specific origins
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173',
-    'https://basava-parishath-bengaluru-website.vercel.app',
-    /https:\/\/basava-parishath-bengaluru-website.*\.vercel\.app$/
-  ],
-  credentials: true,
-  optionsSuccessStatus: 200,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'x-access-token']
-};
+app.use(cors());
 
-app.use(cors(corsOptions));
-
-// Handle preflight requests
-app.options('*', cors(corsOptions));
 
 // Logging middleware for debugging
 app.use((req, res, next) => {
