@@ -2,6 +2,13 @@ import React, { useEffect } from 'react';
 import './GoogleTranslate.css';
 
 const GoogleTranslate = () => {
+  const handleTranslateClick = () => {
+    const dropdownLink = document.querySelector('.goog-te-gadget-simple a');
+    if (dropdownLink) {
+      dropdownLink.click();
+    }
+  };
+
   useEffect(() => {
     // Add Google Translate script to head
     const addScript = () => {
@@ -44,7 +51,11 @@ const GoogleTranslate = () => {
     };
   }, []);
 
-  return <div id="google_translate_element" className="google-translate-custom"></div>;
+  return (
+    <div id="google_translate_wrapper" onClick={handleTranslateClick} className="google-translate-wrapper">
+      <div id="google_translate_element" className="google-translate-custom"></div>
+    </div>
+  );
 };
 
 export default GoogleTranslate;

@@ -49,3 +49,24 @@
     max-width: 200px !important;
   }
 }
+
+.google-translate-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 8px;
+  background-color: #f1f5f9;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.google-translate-wrapper:hover {
+  background-color: #e2e8f0;
+}
+
+@media (max-width: 768px) {
+  .google-translate-wrapper {
+    max-width: 100% !important;
+  }
+}
