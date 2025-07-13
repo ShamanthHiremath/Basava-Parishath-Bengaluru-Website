@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import './GoogleTranslate.css';
 
 const GoogleTranslateMob = () => {
   useEffect(() => {
