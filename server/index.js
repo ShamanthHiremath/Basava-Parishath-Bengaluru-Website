@@ -16,7 +16,7 @@ const teamRoutes = require('./routes/teamRoutes');
 const registrationRoutes = require('./routes/registrationRoutes');
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5001;
 
 // Create temp directory if it doesn't exist
 const tempDir = path.join(__dirname, 'tmp');
@@ -25,13 +25,36 @@ if (!fs.existsSync(tempDir)) {
 }
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET
 });
 
-// Enable CORS for all origins
-app.use(cors());
+// Configure CORS with specific origins
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://basava-parishath-bengaluru-website.vercel.app',
+    /https:\/\/basava-parishath-bengaluru-website.*\.vercel\.app$/
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-access-token']
+};
+
+app.use(cors(corsOptions));
+
+// Handle preflight requests
+app.options('*', cors(corsOptions));
+
+// Logging middleware for debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  console.log('Origin:', req.get('Origin'));
+  next();
+});
 
 app.use(express.json());
 
@@ -49,7 +72,21 @@ connectDB();
 cloudinaryConnect();
 
 app.get('/', (req, res) => {
-  res.send('Server is running with CORS enabled!');
+  res.json({
+    message: 'Server is running with CORS enabled!',
+    timestamp: new Date().toISOString(),
+    port: PORT,
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
 });
 
 // Mount routes
@@ -70,6 +107,13 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
+// Configure server timeouts for Render deployment
+const server = app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server listening on port ${PORT}`);
+  console.log(`Server bound to 0.0.0.0:${PORT}`);
+  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
 });
+
+// Set server timeouts to prevent 502 errors on Render
+server.keepAliveTimeout = 120000; // 120 seconds
+server.headersTimeout = 120000; // 120 seconds
