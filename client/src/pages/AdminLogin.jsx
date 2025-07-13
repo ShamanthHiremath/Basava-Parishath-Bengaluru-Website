@@ -97,7 +97,7 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pt-30">
       <motion.div 
         className="max-w-md w-full space-y-8"
         initial="hidden"
@@ -106,7 +106,7 @@ const AdminLogin = () => {
         transition={{ duration: 0.6 }}
       >
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-blue-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-amber-900">
             Admin Login
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
@@ -115,7 +115,7 @@ const AdminLogin = () => {
         </div>
         
         <motion.div 
-          className="mt-8 bg-white py-8 px-6 shadow-lg rounded-lg border-t-4 border-blue-900"
+          className="mt-8 bg-white py-8 px-6 shadow-xl rounded-lg border-t-4 border-amber-900 backdrop-blur-sm bg-white/95"
           variants={fadeInUp}
           transition={{ delay: 0.1 }}
         >
@@ -126,7 +126,7 @@ const AdminLogin = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="h-5 w-5 text-blue-900" />
+                  <FaEnvelope className="h-5 w-5 text-amber-900" />
                 </div>
                 <input
                   id="email"
@@ -135,7 +135,7 @@ const AdminLogin = () => {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  className="focus:ring-blue-900 focus:border-blue-900 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md"
+                  className="focus:ring-amber-900 focus:border-amber-900 block w-full pl-10 pr-3 py-3 sm:text-sm border-gray-300 rounded-md"
                   placeholder="admin@example.com"
                   autoComplete="email"
                 />
@@ -148,7 +148,7 @@ const AdminLogin = () => {
               </label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-blue-900" />
+                  <FaLock className="h-5 w-5 text-amber-900" />
                 </div>
                 <input
                   id="password"
@@ -157,13 +157,13 @@ const AdminLogin = () => {
                   value={form.password}
                   onChange={handleChange}
                   required
-                  className="focus:ring-blue-900 focus:border-blue-900 block w-full pl-10 pr-12 py-3 sm:text-sm border-gray-300 rounded-md"
+                  className="focus:ring-amber-900 focus:border-amber-900 block w-full pl-10 pr-12 py-3 sm:text-sm border-gray-300 rounded-md"
                   placeholder="••••••••"
                   autoComplete="current-password"
                 />
                 <button
                   type="button"
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-blue-900 transition-colors"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-500 hover:text-amber-900 transition-colors"
                   onClick={togglePasswordVisibility}
                   tabIndex="-1"
                 >
@@ -175,7 +175,7 @@ const AdminLogin = () => {
               </div>
               <div className="flex justify-end mt-2">
                 <div className="text-sm">
-                  <a href="#" className="font-medium text-blue-900 hover:text-blue-900">
+                  <a href="#" className="font-medium text-amber-900 hover:text-amber-700">
                     Forgot your password?
                   </a>
                 </div>
@@ -201,10 +201,10 @@ const AdminLogin = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-900 hover:bg-[#00243a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 transition-colors duration-300"
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-amber-900 hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-900 transition-colors duration-300"
               >
                 <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                  <FaSignInAlt className="h-5 w-5 text-blue-300 group-hover:text-blue-200" />
+                  <FaSignInAlt className="h-5 w-5 text-amber-300 group-hover:text-amber-200" />
                 </span>
                 {loading ? (
                   <>
@@ -225,7 +225,7 @@ const AdminLogin = () => {
           variants={fadeInUp}
           transition={{ delay: 0.2 }}
         >
-          <p>Need help? <a href="/contact" className="font-medium text-blue-900 hover:text-blue-900 transition-colors">Contact support</a></p>
+          <p>Need help? <a href="/contact" className="font-medium text-amber-900 hover:text-amber-700 transition-colors">Contact support</a></p>
         </motion.div>
         
         <motion.div 

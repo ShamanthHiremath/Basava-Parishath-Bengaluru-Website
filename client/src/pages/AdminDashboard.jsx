@@ -40,7 +40,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
       {/* Toast Container for notifications */}
       <ToastContainer position="top-right" />
       
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
         />
 
         {/* Main Content Area */}
-        <div className="bg-white p-6 rounded-b-lg shadow-lg mb-8">
+        <div className="bg-white/95 backdrop-blur-sm p-6 rounded-b-lg shadow-xl mb-8 border-t-4 border-amber-900">
           {activeTab === 'events' && (
             <EventsTab onSuccess={handleSuccess} />
           )}
@@ -131,43 +131,43 @@ const AdminDashboard = () => {
 
 // Keep the TabNavigation component in this file
 const TabNavigation = ({ activeTab, onTabChange }) => (
-  <div className="bg-white border-b border-gray-200 px-4 shadow-sm">
+  <div className="bg-white/95 backdrop-blur-sm border-b border-amber-200 px-4 shadow-sm">
     <nav className="flex overflow-x-auto">
       <button
-        className={`py-4 px-6 text-sm font-medium border-b-2 ${
+        className={`py-4 px-6 text-sm font-medium border-b-2 transition-colors duration-200 ${
           activeTab === 'events' 
-          ? 'border-blue-900 text-blue-900' 
-          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
+          ? 'border-amber-900 text-amber-900' 
+          : 'border-transparent text-gray-500 hover:text-amber-900 hover:border-amber-300'
         }`}
         onClick={() => onTabChange('events')}
       >
         Events
       </button>
       <button
-        className={`py-4 px-6 text-sm font-medium border-b-2 ${
+        className={`py-4 px-6 text-sm font-medium border-b-2 transition-colors duration-200 ${
           activeTab === 'team' 
-          ? 'border-blue-900 text-blue-900' 
-          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
+          ? 'border-amber-900 text-amber-900' 
+          : 'border-transparent text-gray-500 hover:text-amber-900 hover:border-amber-300'
         }`}
         onClick={() => onTabChange('team')}
       >
         Team
       </button>
       <button
-        className={`py-4 px-6 text-sm font-medium border-b-2 ${
+        className={`py-4 px-6 text-sm font-medium border-b-2 transition-colors duration-200 ${
           activeTab === 'messages' 
-          ? 'border-blue-900 text-blue-900' 
-          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
+          ? 'border-amber-900 text-amber-900' 
+          : 'border-transparent text-gray-500 hover:text-amber-900 hover:border-amber-300'
         }`}
         onClick={() => onTabChange('messages')}
       >
         Messages
       </button>
       <button
-        className={`py-4 px-6 text-sm font-medium border-b-2 ${
+        className={`py-4 px-6 text-sm font-medium border-b-2 transition-colors duration-200 ${
           activeTab === 'donations' 
-          ? 'border-blue-900 text-blue-900' 
-          : 'border-transparent text-gray-500 hover:text-blue-900 hover:border-gray-300'
+          ? 'border-amber-900 text-amber-900' 
+          : 'border-transparent text-gray-500 hover:text-amber-900 hover:border-amber-300'
         }`}
         onClick={() => onTabChange('donations')}
       >
