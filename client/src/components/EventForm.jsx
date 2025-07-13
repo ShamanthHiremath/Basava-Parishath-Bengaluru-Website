@@ -82,7 +82,7 @@ const EventForm = ({
             name="name"
             value={form.name}
             onChange={onChange}
-            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+            className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
             placeholder="Enter event name"
             required
           />
@@ -94,14 +94,14 @@ const EventForm = ({
           <label className="block mb-2 font-medium text-gray-700">Event Date</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaCalendarAlt className="text-blue-900" />
+              <FaCalendarAlt className="text-amber-900" />
             </div>
             <input
               type="date"
               name="date"
               value={form.date}
               onChange={onChange}
-              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
               required
             />
           </div>
@@ -111,14 +111,14 @@ const EventForm = ({
           <label className="block mb-2 font-medium text-gray-700">Venue</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaMapMarkerAlt className="text-[#C1121F]" />
+              <FaMapMarkerAlt className="text-amber-900" />
             </div>
             <input
               type="text"
               name="venue"
               value={form.venue}
               onChange={onChange}
-              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#C1121F] focus:border-[#C1121F]"
+              className="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
               placeholder="Enter venue location"
               required
             />
@@ -129,14 +129,14 @@ const EventForm = ({
       <div>
         <label className="block mb-2 font-medium text-gray-700">
           <div className="flex items-center">
-            <FaFileImage className="mr-2 text-blue-900" />
+            <FaFileImage className="mr-2 text-amber-900" />
             <span>Event Photos</span>
           </div>
         </label>
         
         <div 
           ref={dropZoneRef}
-          className={`border-2 border-dashed ${isDragging ? 'border-blue-900 bg-blue-100' : 'border-blue-900 bg-blue-50'} rounded-lg p-6 hover:bg-blue-100 transition-colors`}
+          className={`border-2 border-dashed ${isDragging ? 'border-amber-900 bg-amber-100' : 'border-amber-900 bg-amber-50'} rounded-lg p-6 hover:bg-amber-100 transition-colors`}
           onDragEnter={handleDragEnter}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
@@ -156,11 +156,11 @@ const EventForm = ({
             />
             <div className="flex flex-col items-center justify-center py-4">
               {isDragging ? (
-                <FaUpload className="text-blue-900 text-4xl mb-2 animate-bounce" />
+                <FaUpload className="text-amber-900 text-4xl mb-2 animate-bounce" />
               ) : (
-                <FaFileImage className="text-blue-900 text-3xl mb-2" />
+                <FaFileImage className="text-amber-900 text-3xl mb-2" />
               )}
-              <span className="text-blue-900 font-medium">
+              <span className="text-amber-900 font-medium">
                 {isDragging ? 'Drop images here' : 'Drag and drop or click to select images'}
               </span>
               <span className="text-gray-500 text-sm mt-1">
@@ -184,7 +184,7 @@ const EventForm = ({
                     className="object-cover w-full h-full"
                   />
                   {/* Tag showing it's an existing photo */}
-                  <div className="absolute top-1 left-1 bg-blue-500 text-white text-xs px-2 py-1 rounded-full opacity-70">
+                  <div className="absolute top-1 left-1 bg-amber-600 text-white text-xs px-2 py-1 rounded-full opacity-70">
                     Existing
                   </div>
                   {/* Remove button */}
@@ -244,7 +244,7 @@ const EventForm = ({
       <div>
         <label className="block mb-2 font-medium text-gray-700">
           <div className="flex items-center">
-            <FaAlignLeft className="mr-2 text-blue-900" />
+            <FaAlignLeft className="mr-2 text-amber-900" />
             <span>Description</span>
           </div>
         </label>
@@ -252,7 +252,7 @@ const EventForm = ({
           name="description"
           value={form.description}
           onChange={onChange}
-          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-900 focus:border-blue-900"
+          className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-amber-900 focus:border-amber-900"
           rows={5}
           placeholder="Provide a detailed description of the event..."
           required
@@ -260,7 +260,7 @@ const EventForm = ({
       </div>
       
       {error && (
-        <div className="bg-red-50 border-l-4 border-[#C1121F] p-4 rounded-md text-[#C1121F]">
+        <div className="bg-red-50 border-l-4 border-red-500 p-4 rounded-md text-red-700">
           {error}
         </div>
       )}
@@ -268,7 +268,7 @@ const EventForm = ({
       <div className="flex gap-4 pt-2">
         <button
           type="submit"
-          className="flex-1 bg-blue-900 text-white py-3 rounded-lg font-medium hover:bg-[#00243a] transition-colors flex items-center justify-center"
+          className="flex-1 bg-amber-900 text-white py-3 rounded-lg font-medium hover:bg-amber-800 transition-colors flex items-center justify-center"
           disabled={loading}
         >
           {loading ? (

@@ -18,6 +18,8 @@ const AdminDashboard = () => {
   const [showSignupForm, setShowSignupForm] = useState(false);
   const [showTeamForm, setShowTeamForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [editingTeamMember, setEditingTeamMember] = useState(null);
 
   // Animation variants
   const fadeInUp = {
@@ -39,20 +41,44 @@ const AdminDashboard = () => {
     }
   };
 
+  // Handle create team member
+  const handleCreateTeamMember = () => {
+    setEditingTeamMember(null);
+    setShowTeamForm(true);
+  };
+
+  // Handle edit team member
+  const handleEditTeamMember = (teamMember) => {
+    setEditingTeamMember(teamMember);
+    setShowTeamForm(true);
+  };
+
+  // Handle create event
+  const handleCreateEvent = () => {
+    setEditingEvent(null);
+    setShowEventForm(true);
+  };
+
+  // Handle edit event
+  const handleEditEvent = (event) => {
+    setEditingEvent(event);
+    setShowEventForm(true);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-16">
       {/* Toast Container for notifications */}
       <ToastContainer position="top-right" />
       
       <motion.div 
-        className="max-w-6xl mx-auto px-4"
+        className="max-w-6xl mx-auto px-4 pt-16"
         initial="hidden"
         animate="visible"
         variants={fadeInUp}
       >
         {/* Dashboard Header */}
         <DashboardHeader 
-          onCreateEvent={() => setShowEventForm(true)}
+          onCreateEvent={handleCreateEvent}
           onAddUser={() => setShowSignupForm(true)}
           onAddTeamMember={handleAddTeamMember}
         />
@@ -73,17 +99,26 @@ const AdminDashboard = () => {
         {/* Main Content Area */}
         <div className="bg-white/95 backdrop-blur-sm p-6 rounded-b-lg shadow-xl mb-8 border-t-4 border-amber-900">
           {activeTab === 'events' && (
-            <EventsTab onSuccess={handleSuccess} />
+            <EventsTab 
+              onSuccess={handleSuccess} 
+              onCreateEvent={handleCreateEvent}
+              onEditEvent={handleEditEvent}
+            />
           )}
           
           {activeTab === 'team' && (
-            <TeamTab onSuccess={handleSuccess} />
+            <TeamTab 
+              onSuccess={handleSuccess} 
+              onCreateTeamMember={handleCreateTeamMember}
+              onEditTeamMember={handleEditTeamMember}
+            />
           )}
           
           {activeTab === 'messages' && (
             <MessagesTab onSuccess={handleSuccess} />
           )}
           
+
           {activeTab === 'donations' && (
             <DonationsTab />
           )}
@@ -92,12 +127,17 @@ const AdminDashboard = () => {
 
       {/* Event Creation Modal */}
       <EventFormModal 
-        show={showEventForm}
-        onClose={() => setShowEventForm(false)}
-        onSuccess={(message) => {
-          handleSuccess(message);
+        isOpen={showEventForm}
+        onClose={() => {
           setShowEventForm(false);
+          setEditingEvent(null);
         }}
+        onEventCreated={(eventData) => {
+          handleSuccess(editingEvent ? 'Event updated successfully!' : 'Event created successfully!');
+          setShowEventForm(false);
+          setEditingEvent(null);
+        }}
+        eventToEdit={editingEvent}
       />
 
       {/* User Creation Modal */}
@@ -113,17 +153,16 @@ const AdminDashboard = () => {
       {/* Team Member Creation Modal */}
       <TeamFormModal 
         show={showTeamForm}
-        onClose={() => setShowTeamForm(false)}
+        onClose={() => {
+          setShowTeamForm(false);
+          setEditingTeamMember(null);
+        }}
         onSuccess={(message) => {
           handleSuccess(message);
           setShowTeamForm(false);
-          // Refresh the team list if we're on the team tab
-          if (activeTab === 'team') {
-            // This will work if your TeamTab component has a refreshData method
-            // Otherwise, you might need a different approach to refresh the data
-          }
+          setEditingTeamMember(null);
         }}
-        teamMember={null}
+        teamMember={editingTeamMember}
       />
     </div>
   );

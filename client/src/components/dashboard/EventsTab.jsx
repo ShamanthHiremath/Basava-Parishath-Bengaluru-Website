@@ -2,15 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FaCalendarAlt, FaMapMarkerAlt, FaEdit, FaTrash } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import EventFormModal from '../EventFormModal';
 import ConfirmationModal from '../ConfirmationModal';
 
-const EventsTab = ({ onSuccess }) => {
+const EventsTab = ({ onSuccess, onCreateEvent, onEditEvent }) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingEvent, setEditingEvent] = useState(null);
   
   // Delete confirmation modal state
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -95,35 +92,15 @@ const EventsTab = ({ onSuccess }) => {
 
   // Handle edit event
   const handleEditEvent = (event) => {
-    setEditingEvent(event);
-    setIsModalOpen(true);
-  };
-
-  // Handle event creation or update
-  const handleEventCreatedOrUpdated = (updatedEvent) => {
-    if (editingEvent) {
-      // Update existing event in the list
-      setEvents(events.map(event => 
-        event._id === updatedEvent._id ? updatedEvent : event
-      ));
-      onSuccess('Event updated successfully!');
-    } else {
-      // Add new event to the list
-      setEvents([updatedEvent, ...events]);
-      onSuccess('Event created successfully!');
+    if (onEditEvent) {
+      onEditEvent(event);
     }
-  };
-
-  // Close modal and reset editing state
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setEditingEvent(null);
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-900"></div>
       </div>
     );
   }
@@ -139,10 +116,10 @@ const EventsTab = ({ onSuccess }) => {
   return (
     <>
       <div className="mb-6 flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-blue-900">Events Management</h2>
+        <h2 className="text-xl font-semibold text-amber-900">Events Management</h2>
         <button 
-          className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors"
-          onClick={() => setIsModalOpen(true)}
+          className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors"
+          onClick={() => onCreateEvent && onCreateEvent()}
         >
           Create New Event
         </button>
@@ -169,14 +146,6 @@ const EventsTab = ({ onSuccess }) => {
         )}
       </motion.div>
 
-      {/* Event form modal */}
-      <EventFormModal 
-        isOpen={isModalOpen} 
-        onClose={handleCloseModal} 
-        onEventCreated={handleEventCreatedOrUpdated}
-        eventToEdit={editingEvent}
-      />
-      
       {/* Confirmation modal for delete */}
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
@@ -219,9 +188,9 @@ const EventCard = ({ event, onDelete, onEdit }) => {
         <div className="p-4 md:col-span-3">
           <div className="flex flex-col md:flex-row justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-blue-900">{event.name}</h3>
+              <h3 className="text-xl font-semibold text-amber-900">{event.name}</h3>
               <div className="flex items-center text-gray-600 mt-2 text-sm">
-                <FaCalendarAlt className="mr-2 text-blue-900" />
+                <FaCalendarAlt className="mr-2 text-amber-900" />
                 {new Date(event.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
@@ -237,7 +206,7 @@ const EventCard = ({ event, onDelete, onEdit }) => {
             {/* Action Buttons */}
             <div className="mt-4 md:mt-0 flex space-x-2">
               <button 
-                className="p-2 text-blue-900 hover:bg-blue-50 rounded-full transition-colors"
+                className="p-2 text-amber-900 hover:bg-amber-50 rounded-full transition-colors"
                 title="Edit Event"
                 onClick={onEdit}
               >

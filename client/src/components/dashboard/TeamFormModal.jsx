@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaTimes, FaUpload, FaUser } from 'react-icons/fa';
+import { FaUpload, FaUser, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
+import Modal from '../Modal';
 
 const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
   const [form, setForm] = useState({
@@ -41,12 +41,6 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
       setPreviewUrl('');
     }
   }, [teamMember]);
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -191,52 +185,27 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
   };
 
   return (
-    <AnimatePresence>
-      {show && (
-        <motion.div 
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <motion.div 
-            className="bg-white rounded-lg shadow-xl max-w-2xl w-full overflow-hidden"
-            variants={fadeInUp}
-            initial="hidden"
-            animate="visible"
-            exit={{ opacity: 0, y: 20 }}
-          >
-            {/* Gradient top border */}
-            <div className="h-2 bg-gradient-to-r from-blue-900 to-blue-900"></div>
-            
-            <button
-              className="absolute top-3 right-3 text-gray-400 hover:text-[#C1121F] transition-colors duration-200 p-1 rounded-full hover:bg-gray-100"
-              onClick={onClose}
-            >
-              <FaTimes />
-            </button>
-            
-            <div className="p-6">
-              <h3 className="text-xl font-bold mb-4 text-blue-900">
-                {teamMember ? 'Edit Team Member' : 'Add New Team Member'}
-              </h3>
+    <Modal 
+      isOpen={show} 
+      onClose={onClose} 
+      title={teamMember ? 'Edit Team Member' : 'Add New Team Member'}
+    >
+      {error && (
+        <div className="bg-red-50 border-l-4 border-amber-900 p-4 mb-6 rounded">
+          <div className="flex">
+            <div className="flex-shrink-0">
+              <svg className="h-5 w-5 text-amber-900" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+              </svg>
+            </div>
+            <div className="ml-3">
+              <p className="text-sm text-amber-900">{error}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
-              {error && (
-                <div className="bg-red-50 border-l-4 border-[#C1121F] p-4 mb-6 rounded">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <svg className="h-5 w-5 text-[#C1121F]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div className="ml-3">
-                      <p className="text-sm text-[#C1121F]">{error}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div>
@@ -249,7 +218,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         name="name"
                         value={form.name}
                         onChange={handleChange}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900"
                         placeholder="John Doe"
                       />
                     </div>
@@ -264,7 +233,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         name="position"
                         value={form.position}
                         onChange={handleChange}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900"
                         placeholder="Director"
                       />
                     </div>
@@ -279,7 +248,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         value={form.description}
                         onChange={handleChange}
                         rows={5}
-                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-blue-900 focus:border-blue-900"
+                        className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md focus:ring-amber-900 focus:border-amber-900"
                         placeholder="Brief biography or description..."
                       />
                     </div>
@@ -291,7 +260,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                     </label>
                     <div 
                       ref={dropZoneRef}
-                      className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 ${isDragging ? 'border-blue-900 bg-blue-50' : 'border-gray-300'} border-dashed rounded-md h-64 cursor-pointer transition-colors`}
+                      className={`mt-1 flex justify-center px-6 pt-5 pb-6 border-2 ${isDragging ? 'border-amber-900 bg-amber-50' : 'border-gray-300'} border-dashed rounded-md h-64 cursor-pointer transition-colors`}
                       onDragEnter={handleDragEnter}
                       onDragOver={handleDragOver}
                       onDragLeave={handleDragLeave}
@@ -322,7 +291,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                         <div className="space-y-1 text-center flex flex-col items-center justify-center w-full">
                           <div className="mx-auto h-20 w-20 text-gray-400 mb-2">
                             {isDragging ? (
-                              <FaUpload className="h-20 w-20 text-blue-900 animate-bounce" />
+                              <FaUpload className="h-20 w-20 text-amber-900 animate-bounce" />
                             ) : (
                               <FaUser className="h-20 w-20" />
                             )}
@@ -337,7 +306,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                               className="sr-only" 
                               onChange={handleFileChange}
                             />
-                            <span className="font-medium text-blue-900">
+                            <span className="font-medium text-amber-900">
                               {isDragging ? 'Drop image here' : 'Drag and drop or click to upload'}
                             </span>
                           </div>
@@ -354,14 +323,14 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                   <button
                     type="button"
                     onClick={onClose}
-                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900"
+                    className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-900"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-900 hover:bg-[#00243a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-900 flex items-center"
+                    className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-amber-900 hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-900 flex items-center"
                   >
                     {loading ? (
                       <>
@@ -380,11 +349,7 @@ const TeamFormModal = ({ show, onClose, onSuccess, teamMember }) => {
                   </button>
                 </div>
               </form>
-            </div>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    </Modal>
   );
 };
 

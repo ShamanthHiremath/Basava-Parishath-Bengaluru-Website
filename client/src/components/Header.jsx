@@ -67,11 +67,12 @@ function Header() {
     <header className="fixed top-4 left-0 right-0 z-50 w-full pt-2 px-4">
       <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-md shadow-lg rounded-2xl border border-white/20">
         {/* Main navigation */}
-        <nav className="py-5 px-3 sm:px-4 flex justify-between items-center min-h-[80px]">
-          <NavLink to="/" className="flex items-center flex-shrink-0">
-            <img src={headerLogo} className="h-8 sm:h-10 w-auto mr-2 sm:mr-3" alt="Logo" />
-            <span className="text-base sm:text-lg lg:text-2xl font-black text-amber-900 break-words leading-tight max-w-[200px] sm:max-w-none sm:whitespace-nowrap">
-              Basava Parishath Bengaluru
+        <nav className="py-4 sm:py-5 px-2 sm:px-3 lg:px-4 flex justify-between items-center min-h-[90px] sm:min-h-[100px] gap-2">
+          <NavLink to="/" className="flex items-center flex-shrink-1 min-w-0 overflow-hidden">
+            <img src={headerLogo} className="h-8 sm:h-10 lg:h-12 w-auto mr-2 sm:mr-3 lg:mr-4 flex-shrink-0" alt="Logo" />
+            <span className="text-sm sm:text-base lg:text-lg xl:text-2xl font-black text-amber-900 leading-tight">
+              <span className="block sm:inline">Basava Parishath</span>
+              <span className="block sm:inline sm:ml-1">Bengaluru</span>
             </span>
           </NavLink>
 
@@ -171,16 +172,16 @@ function Header() {
               >
                 Translate:
               </span>
-              <div className="scale-75 origin-left">
+              <div className="scale-75 origin-left" >
                 <GoogleTranslate />
               </div>
             </div>
           </div>
 
           {/* Mobile/Tablet - Translate and Burger */}
-          <div className="flex items-center space-x-2 lg:hidden">
-            {/* Google Translate for Mobile */}
-            <div className="flex items-center bg-amber-50 rounded-lg px-2 py-1 shadow-sm hover:shadow transition-shadow">
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:hidden flex-shrink-0">
+            {/* Google Translate for Mobile - Hidden on very small screens */}
+            <div className="hidden sm:flex items-center bg-amber-50 rounded-lg px-1 sm:px-2 py-1 shadow-sm hover:shadow transition-shadow">
               <span
                 className="text-xs text-amber-800 font-semibold cursor-pointer inline mr-1 hover:underline whitespace-nowrap"
                 onClick={openTranslateDropdownMod}
@@ -192,9 +193,9 @@ function Header() {
               </div>
             </div>
 
-            {/* Mobile Burger */}
+            {/* Mobile Burger - Always visible with guaranteed space */}
             <button
-              className="bg-amber-100 p-2 rounded-lg z-50 relative flex-shrink-0 hover:bg-amber-200 transition-colors"
+              className="bg-amber-100 p-2 rounded-lg z-50 relative flex-shrink-0 hover:bg-amber-200 transition-colors min-w-[40px] min-h-[40px] flex items-center justify-center"
               onClick={(e) => {
                 e.stopPropagation();
                 setMenuOpen((open) => !open);
@@ -309,6 +310,21 @@ function Header() {
             <FaHandHoldingHeart />
             Donate
           </NavLink>
+        </div>
+
+        {/* Translate option for very small screens */}
+        <div className="px-4 py-3 border-t border-amber-100 sm:hidden">
+          <div className="flex items-center justify-center bg-amber-50 rounded-lg px-3 py-2 shadow-sm">
+            <span
+              className="text-xs text-amber-800 font-semibold cursor-pointer inline mr-2 hover:underline"
+              onClick={openTranslateDropdownMod}
+            >
+              Translate:
+            </span>
+            <div className="scale-75 origin-left">
+              <GoogleTranslateMob />
+            </div>
+          </div>
         </div>
       </div>
 

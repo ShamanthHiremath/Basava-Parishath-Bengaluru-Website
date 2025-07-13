@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaUser, FaTrash, FaEdit, FaPlus, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import TeamFormModal from './TeamFormModal';
 
-const TeamTab = ({ onSuccess }) => {
+const TeamTab = ({ onSuccess, onCreateTeamMember, onEditTeamMember }) => {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [showFormModal, setShowFormModal] = useState(false);
-  const [editTeamMember, setEditTeamMember] = useState(null);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [memberToDelete, setMemberToDelete] = useState(null);
 
@@ -101,22 +98,19 @@ const TeamTab = ({ onSuccess }) => {
 
   // Open team form modal for editing
   const handleEdit = (member) => {
-    setEditTeamMember(member);
-    setShowFormModal(true);
+    onEditTeamMember(member);
   };
 
   // Handle team member creation/update
   const handleTeamFormSuccess = (message) => {
     fetchTeam(); // Refresh the team list
-    setShowFormModal(false);
-    setEditTeamMember(null);
     onSuccess(message);
   };
 
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-900"></div>
       </div>
     );
   }
@@ -137,15 +131,12 @@ const TeamTab = ({ onSuccess }) => {
       >
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h3 className="text-xl font-semibold text-blue-900 mb-2">Team Members</h3>
+            <h3 className="text-xl font-semibold text-amber-900 mb-2">Team Members</h3>
             <p className="text-gray-600">Manage your organization's team members</p>
           </div>
           <button
-            className="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-[#00243a] transition-colors shadow-sm flex items-center gap-2"
-            onClick={() => {
-              setEditTeamMember(null);
-              setShowFormModal(true);
-            }}
+            className="bg-amber-900 text-white px-4 py-2 rounded-lg hover:bg-amber-800 transition-colors shadow-sm flex items-center gap-2"
+            onClick={onCreateTeamMember}
           >
             <FaPlus /> Add Team Member
           </button>
@@ -169,17 +160,6 @@ const TeamTab = ({ onSuccess }) => {
           </div>
         )}
       </motion.div>
-
-      {/* Team Form Modal */}
-      <TeamFormModal
-        show={showFormModal}
-        onClose={() => {
-          setShowFormModal(false);
-          setEditTeamMember(null);
-        }}
-        onSuccess={handleTeamFormSuccess}
-        teamMember={editTeamMember}
-      />
 
       {/* Confirmation Modal */}
       <AnimatePresence>
@@ -280,12 +260,12 @@ const TeamMemberCard = ({ member, onDelete, onEdit }) => {
           <div>
             <div className="flex justify-between items-start mb-2">
               <div>
-                <h3 className="text-lg font-semibold text-blue-900">{member.name}</h3>
-                <p className="text-blue-900 font-medium">{member.position}</p>
+                <h3 className="text-lg font-semibold text-amber-900">{member.name}</h3>
+                <p className="text-amber-900 font-medium">{member.position}</p>
               </div>
               <div className="flex space-x-1">
                 <button 
-                  className="p-2 text-blue-900 hover:bg-blue-50 rounded-full transition-colors"
+                  className="p-2 text-amber-900 hover:bg-amber-50 rounded-full transition-colors"
                   onClick={onEdit}
                   title="Edit Team Member"
                 >

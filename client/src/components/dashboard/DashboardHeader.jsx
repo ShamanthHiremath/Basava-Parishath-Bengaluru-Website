@@ -9,19 +9,12 @@ const DashboardHeader = ({ onCreateEvent, onAddUser, onAddTeamMember }) => (
         <p className="text-amber-100">Manage your website content and events</p>
       </div>
       <div className="mt-4 md:mt-0 flex flex-wrap gap-3">
-        {/* <button
-          className="bg-[#C1121F] text-white px-5 py-2 rounded-lg hover:bg-[#780000] transition-colors shadow-md flex items-center gap-2"
+        <button
+          className="bg-amber-700 text-white px-5 py-2 rounded-lg hover:bg-amber-800 transition-colors shadow-md flex items-center gap-2"
           onClick={onCreateEvent}
         >
           <FaPlus /> Create Event
         </button>
-        
-        <button
-          className="bg-amber-900 text-white px-5 py-2 rounded-lg hover:bg-amber-800 transition-colors shadow-md flex items-center gap-2"
-          onClick={onAddTeamMember}
-        >
-          <FaUsers /> Add Team Member
-        </button> */}
         
         <button
           className="bg-white text-amber-900 px-5 py-2 rounded-lg hover:bg-amber-50 transition-colors shadow-md flex items-center gap-2 font-medium"

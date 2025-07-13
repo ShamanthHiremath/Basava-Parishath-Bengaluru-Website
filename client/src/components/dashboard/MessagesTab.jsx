@@ -116,7 +116,7 @@ const MessagesTab = ({ onSuccess }) => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-900"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-amber-900"></div>
       </div>
     );
   }
@@ -136,7 +136,7 @@ const MessagesTab = ({ onSuccess }) => {
         className="space-y-4"
       >
         <div className="mb-6">
-          <h3 className="text-xl font-semibold text-blue-900 mb-2">Contact Messages</h3>
+          <h3 className="text-xl font-semibold text-amber-900 mb-2">Contact Messages</h3>
           <p className="text-gray-600">View and manage messages from website visitors</p>
         </div>
         
@@ -245,14 +245,14 @@ const ContactCard = ({ contact, formatDate, onDelete }) => {
       <div className="flex flex-col md:flex-row md:justify-between md:items-start">
         <div>
           <div className="flex items-center mb-2">
-            <FaUser className="text-blue-900 mr-2" />
-            <h4 className="font-semibold text-lg text-blue-900">{contact.name}</h4>
+            <FaUser className="text-amber-900 mr-2" />
+            <h4 className="font-semibold text-lg text-amber-900">{contact.name}</h4>
           </div>
           <div className="flex items-center text-gray-600 mb-3 text-sm">
-            <FaEnvelope className="text-blue-900 mr-2" />
+            <FaEnvelope className="text-amber-900 mr-2" />
             <a 
               href={`mailto:${contact.email}?subject=Re: ${contact.subject}`} 
-              className="hover:text-blue-900 transition-colors flex items-center"
+              className="hover:text-amber-900 transition-colors flex items-center"
               onClick={handleEmailClick}
             >
               {contact.email}
@@ -276,7 +276,7 @@ const ContactCard = ({ contact, formatDate, onDelete }) => {
       </div>
       
       <div>
-        <h5 className="font-medium text-blue-900 mb-2">
+        <h5 className="font-medium text-amber-900 mb-2">
           Subject: {contact.subject}
         </h5>
         <div className="p-3 bg-gray-50 rounded-lg border border-gray-100 text-gray-700">
